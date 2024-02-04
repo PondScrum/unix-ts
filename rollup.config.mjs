@@ -5,12 +5,16 @@ export default {
 	input: 'src/main.ts',
 	output: [
         {
-		    file: 'dist/cjs/index.js',
-		    format: 'cjs'
+		    file: 'dist/index.js',
+		    format: 'cjs',
+            exports: 'named',
+            sourcemap: true
 	    },
         {
-            file: 'dist/es/index.js',
-            format: 'es'
+            file: 'dist/index.mjs',
+            format: 'es',
+            exports: 'named',
+            sourcemap: true
         }
     ],
     plugins: [typescript()]
