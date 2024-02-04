@@ -15,6 +15,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "repository": { 
+    "type": "git", 
+    "url": "https://github.com/jeremiah-carlson/unix-ts.git" 
+  }, 
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.1.6",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
