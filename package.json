@@ -10,6 +10,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "repository": { 
+    "type": "git", 
+    "url": "https://github.com/jeremiah-carlson/unix-ts.git" 
+  }, 
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.1.6",
     "rollup": "^4.9.6"
