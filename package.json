@@ -1,0 +1,23 @@
+{
+  "name": "unix-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rollup": "^4.9.6"
+  },
+  "optionalDependencies": {
+    "canvas": "*"
+  },
+  "dependencies": {
+    "tslib": "^2.6.2"
+  }
+}
