@@ -36,7 +36,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - run: pnpm ci
+      - run: pnpm i
       - run: pnpm test
 
   publish-gpr:
@@ -71,7 +71,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - run: pnpm ci
+      - run: pnpm i
       - run: pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
