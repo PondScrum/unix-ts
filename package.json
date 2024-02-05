@@ -38,12 +38,12 @@
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
     "eslint": "^8.56.0",
-    "rollup": "^4.9.6",
-    "tslib": "^2.6.2"
+    "rollup": "^4.9.6"
   },
   "optionalDependencies": {
     "canvas": "*"
   },
   "dependencies": {
+    "tslib": "^2.6.2"
   }
 }
