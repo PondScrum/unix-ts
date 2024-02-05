@@ -15,9 +15,9 @@
   "keywords": [],
   "author": "Jeremiah Carlson",
   "license": "MIT",
-  "repository": { 
-    "type": "git", 
-    "url": "https://github.com/jeremiah-carlson/unix-ts.git" 
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeremiah-carlson/unix-ts.git"
   },
   "files": [
     "dist/",
@@ -38,12 +38,11 @@
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
     "eslint": "^8.56.0",
-    "rollup": "^4.9.6"
+    "rollup": "^4.9.6",
+    "tslib": "^2.6.2"
   },
   "optionalDependencies": {
-    "canvas": "*"
   },
   "dependencies": {
-    "tslib": "^2.6.2"
   }
 }
