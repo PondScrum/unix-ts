@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -13,26 +13,31 @@
     "build": "rollup -c"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Jeremiah Carlson",
+  "license": "MIT",
   "repository": { 
     "type": "git", 
     "url": "https://github.com/jeremiah-carlson/unix-ts.git" 
   }, 
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "ignore": [
+      "src/",
+      "test/",
+      "*.nix"
+    ]
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.1.6",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
     "eslint": "^8.56.0",
-    "rollup": "^4.9.6"
+    "rollup": "^4.9.6",
+    "tslib": "^2.6.2"
   },
   "optionalDependencies": {
     "canvas": "*"
   },
   "dependencies": {
-    "tslib": "^2.6.2"
   }
 }
