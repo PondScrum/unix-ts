@@ -18,7 +18,13 @@
   "repository": { 
     "type": "git", 
     "url": "https://github.com/jeremiah-carlson/unix-ts.git" 
-  }, 
+  },
+  "files": [
+    "dist/",
+    "package.json",
+    "License",
+    "README.md"
+  ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "ignore": [
