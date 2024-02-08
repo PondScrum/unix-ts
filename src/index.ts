@@ -38,7 +38,7 @@ export class Epoch {
 
     microseconds():number {
         //TODO from unit --> sec --> micro
-        return 1
+        return this.seconds() * 1000000;
     }
 
     diff(epoch: Epoch):number {
