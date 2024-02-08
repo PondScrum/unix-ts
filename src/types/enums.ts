@@ -44,6 +44,8 @@ export const enum TimeZones {
 
     // Other Time Zones
     GMT = 0,    // Greenwich Mean Time (UTC+0 hours) - Dublin, Ireland (Note: DST is observed here as Irish Standard Time, IST)
+    BST = 1, // British Summer Time
     UTC = 0,    // Coordinated Universal Time (UTC+0 hours) - Reykjavik, Iceland
+    UTC_PLUS_1 = 1, // UTC+1 is a fixed time zone without DST
     GST = 4,    // Gulf Standard Time (UTC+4 hours) - Dubai and Abu Dhabi (Note: DST is not observed in these locations)
 }
