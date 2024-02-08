@@ -1,6 +1,6 @@
-import { Epoch } from '../../src/index';
+import { Epoch, TypeTimeStamp } from '../../src/index';
 
-test('Construct Epoch', ()=>{
-    let e1 = new Epoch(123, 1)
-    expect(e1.Test()).toBe(123)
+test('Convert Milliseconds --> Seconds', ()=>{
+    let e1 = new Epoch(1000, TypeTimeStamp.Millisecond)
+    expect(e1.seconds()).toBe(1)
 })
