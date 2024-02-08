@@ -1,15 +1,15 @@
 import {TypeTimeStamp} from './types/enums';
 
 export class Epoch {
-    val: bigint
+    val: number
     unit: TypeTimeStamp
 
-    constructor(val: bigint, unit?: TypeTimeStamp){
+    constructor(val: number, unit?: TypeTimeStamp){
         this.val = val
         this.unit =  unit ??  TypeTimeStamp.Second
     }
 
-    Test = ():bigint=>{
+    Test = ():number=>{
         return this.val
     }
 }
