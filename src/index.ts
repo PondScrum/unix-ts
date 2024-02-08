@@ -33,8 +33,7 @@ export class Epoch {
     }
 
     milliseconds():number {
-        //TODO from unit --> sec --> milli
-        return this.
+        return this.seconds() * 1000;
     }
 
     microseconds():number {
