@@ -1,3 +1,3 @@
 # See comments in the following files
-- /src/tpyes/enums.ts
+- /src/types/enums.ts
 - /src/index.ts
