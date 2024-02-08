@@ -41,9 +41,21 @@ export class Epoch {
         return this.seconds() * 1000000;
     }
 
-    diff(epoch: Epoch):number {
-        //TODO implement diff, returning in unit of this epoch
-        return 1
+    /**
+     * Calculates the difference between two Epoch instances and returns the difference
+     * in the unit of the current Epoch instance.
+     *
+     * @param {Epoch} epoch - The Epoch instance to compare with.
+     * @returns {number} - The difference in the current Epoch's unit.
+     */
+    diff(epoch: Epoch): number {
+        // First, convert both Epoch instances to seconds
+        const currentEpochInSeconds = this.val * (mapToSeconds.get(this.unit) || 1);
+        const otherEpochInSeconds = epoch.val * (mapToSeconds.get(epoch.unit) || 1);
+        // Calculate the difference in seconds
+        const differenceInSeconds = currentEpochInSeconds - otherEpochInSeconds;
+        // Convert the difference back to the current Epoch's unit
+        return differenceInSeconds * (mapFromSeconds.get(this.unit) || 1);
     }
 
     in(timeline: Array<Epoch>):boolean {
