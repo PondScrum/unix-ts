@@ -1,6 +1,24 @@
 import {TypeTimeStamp, TimeUnit, ISOStringFormats, TimeZones} from './types/enums';
 import { mapFromSeconds, mapToSeconds } from './helpers/coefficients';
 
+/**
+ * Represents a specific point in time, referred to as an epoch.
+ * The epoch is stored internally as a number with a unit of time.
+ *
+ * @class
+ * @param {number} val - The numeric value of the time.
+ * @param {TypeTimeStamp} [unit=TypeTimeStamp.Second] - The unit of time for the value provided.
+ *        The default unit is seconds if not specified.
+ *
+ * @example
+ * // Create an Epoch instance representing 5000 milliseconds
+ * const epochMillis = new Epoch(5000, TypeTimeStamp.Millisecond);
+ *
+ * @example
+ * // Create an Epoch instance with the default unit of seconds
+ * const epochSeconds = new Epoch(60);
+ */
+
 export class Epoch {
     val: number
     readonly unit: TypeTimeStamp
@@ -16,7 +34,7 @@ export class Epoch {
 
     milliseconds():number {
         //TODO from unit --> sec --> milli
-        return 1
+        return this.
     }
 
     microseconds():number {
