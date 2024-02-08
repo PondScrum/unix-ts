@@ -4,6 +4,7 @@ import {
   ISOStringFormats,
   TimeZones,
 } from "./types/enums";
+import { timeZoneMappings } from "./types/records";
 import { mapFromSeconds, mapToSeconds } from "./helpers/coefficients";
 
 /**
