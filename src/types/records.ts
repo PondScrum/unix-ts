@@ -8,6 +8,5 @@ export const timeZoneMappings: Record<TimeZones, string> = {
     [TimeZones.CST]: "America/Chicago",
     [TimeZones.EST]: "America/New_York",
     [TimeZones.GMT]: "Europe/London",
-    [TimeZones.UTC]: "Etc/UTC",
     [TimeZones.GST]: "Asia/Dubai",
   };
