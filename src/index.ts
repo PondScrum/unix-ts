@@ -58,22 +58,36 @@ export class Epoch {
         return differenceInSeconds * (mapFromSeconds.get(this.unit) || 1);
     }
 
-    in(timeline: Array<Epoch>):boolean {
-        //TODO this epoch within min - max
-        return true
+    in(timeline: Array<Epoch>): boolean {
+        if (timeline.length < 2) {
+            throw new Error('Timeline array must contain at least two Epoch instances to define a range.');
+        }
+        
+        const thisEpochInSeconds = this.seconds();
+        const startEpochInSeconds = timeline[0].seconds();
+        const endEpochInSeconds = timeline[timeline.length - 1].seconds();
+
+        return thisEpochInSeconds >= startEpochInSeconds && thisEpochInSeconds <= endEpochInSeconds;
     }
 
-    add(epoch: Epoch):void {
-        //TODO Add time in place
+    add(epoch: Epoch): void {
+        // Convert both epochs to seconds and add them
+        const thisEpochInSeconds = this.seconds();
+        const otherEpochInSeconds = epoch.seconds();
+        const resultInSeconds = thisEpochInSeconds + otherEpochInSeconds;
+
+        // Convert the result back to the original unit and update this.val
+        this.val = resultInSeconds / (mapToSeconds.get(this.unit) || 1);
     }
 
-    subtract(epoch: Epoch):void {
-        //TODO Subtract time in place
-    }
+    subtract(epoch: Epoch): void {
+        // Convert both epochs to seconds and subtract them
+        const thisEpochInSeconds = this.seconds();
+        const otherEpochInSeconds = epoch.seconds();
+        const resultInSeconds = thisEpochInSeconds - otherEpochInSeconds;
 
-    toString(isoFormat: ISOStringFormats, timeZone: TimeZones  = TimeZones.UTC):string {
-        //TODO implement string in compliance with common ISO formats.
-        return isoFormat
+        // Convert the result back to the original unit and update this.val
+        this.val = resultInSeconds / (mapToSeconds.get(this.unit) || 1);
     }
 
 }
