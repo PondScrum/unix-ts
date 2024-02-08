@@ -1,4 +1,4 @@
-import {TypeTimeStamp} from './enums';
+import {TypeTimeStamp} from './types/enums';
 
 export class Epoch {
     val: bigint
@@ -13,3 +13,5 @@ export class Epoch {
         return this.val
     }
 }
+
+export {TypeTimeStamp} from './types/enums';

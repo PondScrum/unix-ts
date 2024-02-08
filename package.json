@@ -17,7 +17,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jeremiah-carlson/unix-ts.git"
+    "url": "https://github.com/PondScrum/unix-ts.git"
   },
   "files": [
     "dist/",
