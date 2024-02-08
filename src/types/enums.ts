@@ -19,7 +19,7 @@ export const enum TimeUnit {
 };
 
 //TODO implement common formats
-export const enum ISOStringFormats { 
+export const enum ISOStringFormat { 
     ShortDate = "YYYY-MM-DD", // ISO format for date only
     FullDate = "YYYY-MM-DDThh:mm:ss.sssZ", // ISO format for date and time
     FullDateWithOffset = "YYYY-MM-DDThh:mm:ss.sss±hh:mm", // ISO format with time zone offset
@@ -28,7 +28,7 @@ export const enum ISOStringFormats {
 }
 
 //TODO implement common formats
-export const enum TimeZones {
+export enum TimeZone {
     // United States Time Zones with standard and daylight saving time
     HAST = -10, // Hawaii-Aleutian Standard Time (UTC-10 hours)
     AKST = -9,  // Alaska Standard Time (UTC-9 hours)
@@ -41,4 +41,7 @@ export const enum TimeZones {
     GMT = 0,    // Greenwich Mean Time (UTC+0 hours) - Dublin, Ireland (Note: DST is observed here as Irish Standard Time, IST)
     UTC = 0,    // Coordinated Universal Time (UTC+0 hours) - Reykjavik, Iceland
     GST = 4,    // Gulf Standard Time (UTC+4 hours) - Dubai and Abu Dhabi (Note: DST is not observed in these locations)
+    
+    //AZ except for Navajo Nation
+    AZ = -7
 }
