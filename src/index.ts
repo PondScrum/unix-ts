@@ -33,12 +33,12 @@ export class Epoch {
     }
 
     milliseconds():number {
-        return this.seconds() * 1000;
+        return this.seconds() * (mapFromSeconds.get(TypeTimeStamp.Millisecond)!);
     }
 
     microseconds():number {
         //TODO from unit --> sec --> micro
-        return this.seconds() * 1000000;
+        return this.seconds() * (mapFromSeconds.get(TypeTimeStamp.Microsecond)!);
     }
 
     /**
