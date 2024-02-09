@@ -34,6 +34,10 @@ export class Epoch {
         this.unit = unit ?? TypeTimeStamp.Second;
     }
 
+    valueOf(): number {
+        return this.seconds()
+    }
+
     seconds(): number {
         return this.val * mapToSeconds.get(this.unit)!;
     }
