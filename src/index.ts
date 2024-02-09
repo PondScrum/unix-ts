@@ -149,3 +149,21 @@ export class Epoch {
         }
     }
 }
+
+
+
+export class TimedEvent {
+    start: Epoch
+    end: Epoch
+    metaData: any
+
+    constructor(start: Epoch | number, end: Epoch | number, metaData?: any) {
+        this.start = ( start instanceof Epoch) ? start : new Epoch(start);
+        this.end = ( end instanceof Epoch) ? end : new Epoch(end);
+        this.metaData = metaData;
+    }
+
+    duration(): number {
+        return this.end.diff(this.start)
+    }
+}
