@@ -39,3 +39,16 @@ test('Test in as within', ()=>{
     expect(e3.in([e1, e2])).toBe(false);
     expect(() => e1.in([e2])).toThrow(RangeError);
 })
+
+test('Date method', ()=>{
+    let e1 = new Epoch(1577836800);  
+    let d1 = e1.date();
+    expect(d1.toUTCString()).toBe('Wed, 01 Jan 2020 00:00:00 GMT');
+})
+
+test('Daylight savings', ()=>{
+    let e1 = new Epoch(1577836800);
+    let e2 = new Epoch(1590969600);
+    expect(e1.isDst(-5)).toBe(false);
+    expect(e2.isDst(-5)).toBe(true);
+})
