@@ -34,10 +34,6 @@ export class Epoch {
         this.unit = unit ?? TypeTimeStamp.Second;
     }
 
-    valueOf(): number {
-        return this.seconds()
-    }
-
     seconds(): number {
         return this.val * mapToSeconds.get(this.unit)!;
     }
@@ -85,7 +81,7 @@ export class Epoch {
      */
     in(timeline: Array<Epoch>): boolean {
         if (timeline.length < 2) {
-            throw new Error(
+            throw new RangeError(
                 "Timeline array must contain at least two Epoch instances to define a range."
             );
         }
