@@ -161,6 +161,10 @@ export class TimedEvent {
         this.start = ( start instanceof Epoch) ? start : new Epoch(start);
         this.end = ( end instanceof Epoch) ? end : new Epoch(end);
         this.metaData = metaData;
+
+        if (this.start.seconds() > this.end.seconds()) throw new RangeError(
+            'Event cannot end before it starts.'
+        )  
     }
 
     duration(): number {

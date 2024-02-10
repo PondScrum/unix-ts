@@ -1,7 +1,7 @@
 import { Epoch, TimedEvent } from "../../src/index";
 
-let e1 = new Epoch(1577854800) // 01 Jan 2020 00:00:00 UTC
-let e2 = new Epoch(1577858400)// 01 Jan 2020 01:00:00 UTC
+let e1 = new Epoch(1577836800) // 01 Jan 2020 00:00:00 UTC
+let e2 = new Epoch(1577840400)// 01 Jan 2020 01:00:00 UTC
 let unit = new TimedEvent(e1, e2)
 
 test("Construct TimedEvent from numbers", ()=>{
@@ -20,5 +20,13 @@ test("Bind metadata", ()=>{
         maxDuration: new Epoch(100)
     }
     let te = new TimedEvent(e1, e2, meta);
-    expect(te.duration() > te.metaData.maxDuration).toBe(true); 
+    expect(te.duration()).toBeGreaterThan(te.metaData.maxDuration.seconds());
+    expect(te.duration()).toBeLessThan(1_000_000);
+
 })
+
+test("Test event duration < 0.", ()=>{  
+    expect(()=> new TimedEvent(e2, e1)).toThrow(RangeError);
+})
+
+
