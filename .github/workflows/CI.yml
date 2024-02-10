@@ -36,15 +36,16 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-
+      
       - run: pnpm i
       - run: pnpm run cc
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage/clover.xml
         env:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: PondScrum/unix-ts
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   publish-gpr:
     needs: build
