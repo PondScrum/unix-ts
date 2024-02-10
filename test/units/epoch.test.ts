@@ -47,8 +47,12 @@ test('Date method', ()=>{
 })
 
 test('Daylight savings', ()=>{
-    let e1 = new Epoch(1577836800);
-    let e2 = new Epoch(1590969600);
+    let e1 = new Epoch(1577836800); // Wed Jan 01 2020 00:00:00 UTC
+    let e2 = new Epoch(1590969600); // Mon Jun 01 2020 00:00:00 UTC
     expect(e1.isDst(-5)).toBe(false);
     expect(e2.isDst(-5)).toBe(true);
+    // @ts-ignore
+    expect(()=>e1.isDst(-11)).toThrow(Error);
+    expect(e2.isDst(-10)).toBe(false);
+    expect(e2.isDst(0)).toBe(true);
 })
