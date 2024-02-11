@@ -1,18 +1,13 @@
 import {
+    TypeTimeStamp,
+    TTypeTimeStamp,
     TimeUnit,
+    TTimeUnit,
     ISOStringFormat,
     TimeZone,
 } from "./types/enums";
 import { timeZoneMappings } from "./types/records";
 import { mapFromSeconds, mapToSeconds } from "./helpers/coefficients";
-
-export { TimeUnit, ISOStringFormat, TimeZone};
-
-export const enum TypeTimeStamp {
-    Second = 1,
-    Millisecond,
-    Microsecond
-};
 
 /**
  * Represents a specific point in time, referred to as an epoch.
@@ -33,9 +28,9 @@ export const enum TypeTimeStamp {
  */
 export class Epoch {
     val: number;
-    readonly unit: TypeTimeStamp;
+    readonly unit: TTypeTimeStamp;
 
-    constructor(val: number, unit?: TypeTimeStamp) {
+    constructor(val: number, unit?: TTypeTimeStamp) {
         this.val = val;
         this.unit = unit ?? TypeTimeStamp.Second;
     }

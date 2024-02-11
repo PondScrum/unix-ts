@@ -1,5 +1,4 @@
-import { TimeUnit } from "../types/enums";
-import { TypeTimeStamp } from "../index";
+import { TypeTimeStamp, TimeUnit } from "../types/enums";
 
 export const mapToSeconds = new Map([
     [TypeTimeStamp.Microsecond, .000001],

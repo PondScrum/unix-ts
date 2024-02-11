@@ -1,22 +1,42 @@
-export const enum TypeTimeStamp {
-    Second = 1,
-    Millisecond,
-    Microsecond
-};
+export const TypeTimeStamp = {
+    Second: 1,
+    Millisecond: 2,
+    Microsecond: 3
+} as const;
 
-export const enum TimeUnit {
-    Second = 1,
-    Millisecond,
-    Microsecond,
-    Minute,
-    Hour,
-    Day,
-    BusinessWeek,
-    Week,
-    Month,
-    Year,
-    Decade,
-};
+export type TTypeTimeStamp = 
+    | typeof TypeTimeStamp.Second
+    | typeof TypeTimeStamp.Millisecond
+    | typeof TypeTimeStamp.Microsecond
+;
+
+export const TimeUnit = {
+    Second: 1,
+    Millisecond: 2,
+    Microsecond: 3,
+    Minute: 4,
+    Hour: 5,
+    Day: 6,
+    BusinessWeek: 7,
+    Week: 8,
+    Month: 9,
+    Year: 10,
+    Decade: 11,
+} as const;
+
+export type TTimeUnit = 
+| typeof TimeUnit.Second
+| typeof TimeUnit.Millisecond
+| typeof TimeUnit.Microsecond 
+| typeof TimeUnit.Minute
+| typeof TimeUnit.Hour
+| typeof TimeUnit.Day 
+| typeof TimeUnit.BusinessWeek
+| typeof TimeUnit.Week
+| typeof TimeUnit.Month 
+| typeof TimeUnit.Year
+| typeof TimeUnit.Decade
+;
 
 //TODO implement common formats
 export const enum ISOStringFormat { 
