@@ -1,5 +1,4 @@
 import {
-    TypeTimeStamp,
     TimeUnit,
     ISOStringFormat,
     TimeZone,
@@ -7,7 +6,13 @@ import {
 import { timeZoneMappings } from "./types/records";
 import { mapFromSeconds, mapToSeconds } from "./helpers/coefficients";
 
-export {TypeTimeStamp, TimeUnit, ISOStringFormat, TimeZone};
+export { TimeUnit, ISOStringFormat, TimeZone};
+
+export const enum TypeTimeStamp {
+    Second = 1,
+    Millisecond,
+    Microsecond
+};
 
 /**
  * Represents a specific point in time, referred to as an epoch.
