@@ -9,6 +9,7 @@ import {
 import { timeZoneMappings } from "./types/records";
 import { mapFromSeconds, mapToSeconds } from "./helpers/coefficients";
 
+export { TypeTimeStamp , TimeUnit};
 
 /**
  * Represents a specific point in time, referred to as an epoch.
