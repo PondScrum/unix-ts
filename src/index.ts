@@ -4,12 +4,14 @@ import {
     TimeUnit,
     TTimeUnit,
     ISOStringFormat,
+    TISOStringFormat,
     TimeZone,
+    TTimeZone,
 } from "./types/enums";
 import { timeZoneMappings } from "./types/records";
 import { mapFromSeconds, mapToSeconds } from "./helpers/coefficients";
 
-export { TypeTimeStamp , TimeUnit};
+export { TypeTimeStamp , TimeUnit, ISOStringFormat, TimeZone};
 
 /**
  * Represents a specific point in time, referred to as an epoch.
@@ -31,7 +33,6 @@ export { TypeTimeStamp , TimeUnit};
 export class Epoch {
     val: number;
     readonly unit: TTypeTimeStamp;
-    test = 1
 
     constructor(val: number, unit?: TTypeTimeStamp) {
         this.val = val;
@@ -120,9 +121,9 @@ export class Epoch {
         this.val = resultInSeconds / (mapToSeconds.get(this.unit) || 1);
     }
 
-    isDst(timezone: TimeZone): boolean {
+    isDst(timezone: TTimeZone): boolean {
         //check that timezone is a valid timezone
-        if (!(timezone in TimeZone)) {
+        if (!(Object.values(TimeZone).includes(timezone))) {
             throw new Error("Invalid timezone");
         }
         // Time zones that do not observe DST
