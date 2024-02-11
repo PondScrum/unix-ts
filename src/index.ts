@@ -192,11 +192,45 @@ export class TimedEvent {
         this.metaData = metaData;
 
         if (this.start.seconds() > this.end.seconds()) throw new RangeError(
-            'Event cannot end before it starts.'
+            "Event cannot end before it starts."
         )  
     }
 
     duration(): number {
         return this.end.diff(this.start)
+    }
+}
+
+export class TimeLine {
+    events: Array<TimedEvent>
+
+    constructor(events: Array<TimedEvent>) {
+        this.events = events
+    }
+
+    protected compareEventStartTime(event1: TimedEvent, event2: TimedEvent): number {
+        return event1.start.seconds() - event2.start.seconds()
+    }
+
+    protected compareEventEndTime(event1: TimedEvent, event2: TimedEvent): number {
+        return event1.end.seconds() - event2.end.seconds()
+    }
+
+    sort(asc: boolean = true, comparison: "start" | "end" = "start"): void {
+        if (comparison === "start") {
+            this.events.sort(this.compareEventStartTime);
+            (asc) ? undefined : this.events.reverse();
+        } else {
+            this.events.sort(this.compareEventEndTime);
+            (asc) ? undefined : this.events.reverse();
+        }
+    }
+
+    push(event: TimedEvent, sorted: boolean = true, direction: "left" | "right" = "right"): void {
+        if (sorted) {
+            
+        } else {
+            (direction === "left") ? this.events.unshift(event) : this.events.push(event);
+        }
     }
 }
