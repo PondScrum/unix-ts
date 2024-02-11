@@ -7,7 +7,8 @@ import {
     TimeZone,
 } from "./types/enums";
 import { timeZoneMappings } from "./types/records";
-import { mapFromSeconds, mapToSeconds } from "./helpers/coefficients";
+import { mapFromSeconds, mapToSeconds } from "./helpers/coefficients";ß
+
 
 /**
  * Represents a specific point in time, referred to as an epoch.
@@ -29,6 +30,7 @@ import { mapFromSeconds, mapToSeconds } from "./helpers/coefficients";
 export class Epoch {
     val: number;
     readonly unit: TTypeTimeStamp;
+    test = 1
 
     constructor(val: number, unit?: TTypeTimeStamp) {
         this.val = val;
