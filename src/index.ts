@@ -7,6 +7,8 @@ import {
 import { timeZoneMappings } from "./types/records";
 import { mapFromSeconds, mapToSeconds } from "./helpers/coefficients";
 
+export {TypeTimeStamp, TimeUnit, ISOStringFormat, TimeZone};
+
 /**
  * Represents a specific point in time, referred to as an epoch.
  * The epoch is stored internally as a number with a unit of time.
@@ -24,7 +26,6 @@ import { mapFromSeconds, mapToSeconds } from "./helpers/coefficients";
  * // Create an Epoch instance with the default unit of seconds
  * const epochSeconds = new Epoch(60);
  */
-
 export class Epoch {
     val: number;
     readonly unit: TypeTimeStamp;
@@ -151,7 +152,31 @@ export class Epoch {
 }
 
 
-
+/**
+ * Represents a time bound event.
+ * The event is is bracketed by Epoch objects on each end, and has the ability to store event info via the metaData parameter. 
+ *
+ * @class
+ * @param {Epoch} start - Event beginning as an Epoch.
+ * @param {Epoch} end - Event end as an Epoch.
+ * @param {any} metaData - Used to store any other information regarding the event.
+ *
+ * @example
+ * // Create a TimedEvent instance beginning at 01 Jan 2020 00:00:00 UTC with a duration of 1 hour
+ * const epoch1 = new Epoch(1577836800);
+ * const epoch2 = new Epoch(1577840400);
+ * const event = new TimedEvent(epoch1, epoch2);
+ *
+ * @example
+ * // Create a TimedEvent instance with event metadata
+ * const epoch1 = new Epoch(1577836800);
+ * const epoch2 = new Epoch(1577840400);
+ * const data = {
+ *  category: "delivery",
+ *  destination: "ABC Corp"
+ * };
+ * const event = new TimedEvent(epoch1, epoch2, data);
+ */
 export class TimedEvent {
     start: Epoch
     end: Epoch
