@@ -1,6 +1,6 @@
-import { TimeZone } from "./enums";
+import { TimeZone, TTimeZone } from "./enums";
 
-export const timeZoneMappings: Record<TimeZone, string> = {
+export const timeZoneMappings: Record<TTimeZone, string> = {
     [TimeZone.HAST]: "Pacific/Honolulu",
     [TimeZone.AKST]: "America/Anchorage",
     [TimeZone.PST]: "America/Los_Angeles",
