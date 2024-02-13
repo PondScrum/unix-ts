@@ -48,7 +48,6 @@ export class Epoch {
     }
 
     microseconds(): number {
-        //TODO from unit --> sec --> micro
         return this.seconds() * mapFromSeconds.get(TypeTimeStamp.Microsecond)!;
     }
 
@@ -226,15 +225,19 @@ export class TimeLine {
         }
     }
 
-    push(event: TimedEvent, sorted: boolean = true, direction: "left" | "right" = "right"): void {
-        if (sorted) {
-            //TODO convert sorted push to insert method.
-            
-        } else {
-            (direction === "left") ? this.events.unshift(event) : this.events.push(event);
-        }
+    push(event: TimedEvent, direction: "left" | "right" = "right"): void {
+            (direction === "left") ? this.events.unshift(event) : this.events.push(event);    
     }
 
+    insert(event: TimedEvent): void {
+        // Find the insertion point
+        let i = 0;
+        while (i < this.events.length && this.compareEventStartTime(this.events[i], event) <= 0) {
+            i++;
+        }
+        // Insert the event at the found index
+        this.events.splice(i, 0, event);
+    }
     
     pop(): TimedEvent {
         //TODO implement rpop and lpop
