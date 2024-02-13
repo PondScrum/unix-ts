@@ -225,11 +225,13 @@ export class TimeLine {
         }
     }
 
-    push(event: TimedEvent, direction: "left" | "right" = "right"): void {
+    push(event: TimedEvent, sorted: boolean = true, direction: "left" | "right" = "right"): void {
             (direction === "left") ? this.events.unshift(event) : this.events.push(event);    
     }
 
+
     insert(event: TimedEvent): void {
+        //TODO refactor to BST
         // Find the insertion point
         let i = 0;
         while (i < this.events.length && this.compareEventStartTime(this.events[i], event) <= 0) {
@@ -239,9 +241,10 @@ export class TimeLine {
         this.events.splice(i, 0, event);
     }
     
-    pop(): TimedEvent {
+    pop(direction: "left" | "right" = "right"): TimedEvent {
         //TODO implement rpop and lpop
-        return <TimedEvent>{}
+        let event = (direction === "left") ? this.events.shift() : this.events.pop();
+        return event!;
     }
 
 
