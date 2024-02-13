@@ -84,16 +84,16 @@ export class Epoch {
      *                    by the timeline; otherwise, false.
      * @throws {Error} Throws an error if the timeline array does not contain at least two Epoch instances.
      */
-    in(timeline: Array<Epoch>): boolean {
-        if (timeline.length < 2) {
+    in(epochArray: Array<Epoch>): boolean {
+        if (epochArray.length < 2) {
             throw new RangeError(
                 "Timeline array must contain at least two Epoch instances to define a range."
             );
         }
 
         const thisEpochInSeconds = this.seconds();
-        const startEpochInSeconds = timeline[0].seconds();
-        const endEpochInSeconds = timeline[timeline.length - 1].seconds();
+        const startEpochInSeconds = epochArray[0].seconds();
+        const endEpochInSeconds = epochArray[epochArray.length - 1].seconds();
 
         return (
             thisEpochInSeconds >= startEpochInSeconds &&
