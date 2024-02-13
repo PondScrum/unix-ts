@@ -228,9 +228,24 @@ export class TimeLine {
 
     push(event: TimedEvent, sorted: boolean = true, direction: "left" | "right" = "right"): void {
         if (sorted) {
+            //TODO convert sorted push to insert method.
             
         } else {
             (direction === "left") ? this.events.unshift(event) : this.events.push(event);
         }
+    }
+
+    
+    pop(): TimedEvent {
+        //TODO implement rpop and lpop
+        return <TimedEvent>{}
+    }
+
+
+    mask(tl: TimeLine): void {
+        //TODO implement timeline intersection. mask or intersection.
+        //Example I have a timeline denoting work tasks over multiple days, and a timeline denoting hours of operation. I would like to mask the array so it shows as tasks during hours of operation.
+        //tasks that are split will share the same metadata
+        //
     }
 }
