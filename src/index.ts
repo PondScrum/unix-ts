@@ -225,7 +225,7 @@ export class TimeLine {
         }
     }
 
-    push(event: TimedEvent, sorted: boolean = true, direction: "left" | "right" = "right"): void {
+    push(event: TimedEvent, direction: "left" | "right" = "right"): void {
             (direction === "left") ? this.events.unshift(event) : this.events.push(event);    
     }
 
