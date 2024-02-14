@@ -62,15 +62,16 @@ test('Test sort desc', ()=>{
 test('insert method should correctly insert an event into the timeline', () => {
     // Initialize timeline with events
     let t1 = new TimeLine(gen_arr());
+    t1.sort()
     
     // Create a new event to insert
-    let newEvent = new TimedEvent(new Epoch(ts_start + 10_000), new Epoch(ts_start + 20_000), {sort_index_start: 1.5, sort_index_end: 1.5});
+    let newEvent = new TimedEvent(new Epoch(ts_start + 10_000), new Epoch(ts_start + 20_000));
 
     // Insert new event
     t1.insert(newEvent);
     
     // After insertion, the new event should be at index 2
-    expect(t1.events[2]).toBe(newEvent);
+    expect(t1.events[1]).toBe(newEvent);
 });
 
 test('pop method should remove the last or first event from the timeline', () => {
