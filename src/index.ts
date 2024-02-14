@@ -202,9 +202,18 @@ export class TimedEvent {
 
 export class TimeLine {
     events: Array<TimedEvent>
+    private sortingBy: "start" | "end" | "duration" | null;
+    private sortingOrder: "asc" | "desc" | null;
 
     constructor(events: Array<TimedEvent>) {
         this.events = events
+        this.sortingBy = null;
+        this.sortingOrder = null;
+    }
+
+    private setSortingState(by: "start" | "end" | "duration" | null = null, order: "asc" | "desc" | null = null): void {
+        this.sortingBy = by;
+        this.sortingOrder = order;
     }
 
     protected compareEventStartTime(event1: TimedEvent, event2: TimedEvent): number {
@@ -215,13 +224,28 @@ export class TimeLine {
         return event1.end.seconds() - event2.end.seconds()
     }
 
-    sort(asc: boolean = true, comparison: "start" | "end" = "start"): void {
+    getSortingState(): { by: "start" | "end" | "duration" |null; order: "asc" | "desc" | null } {
+        return {
+            by: this.sortingBy,
+            order: this.sortingOrder
+        };
+    }    
+
+    sort(asc: boolean = true, comparison: "start" | "end" | "duration" = "start"): void {
+        //sort by start
         if (comparison === "start") {
-            this.events.sort(this.compareEventStartTime);
-            (asc) ? undefined : this.events.reverse();
-        } else {
-            this.events.sort(this.compareEventEndTime);
-            (asc) ? undefined : this.events.reverse();
+            this.events.sort((a, b) => (asc ? 1 : -1) * this.compareEventStartTime(a, b));
+            this.setSortingState("start", asc ? "asc" : "desc");
+        }
+        //sort by end
+        else if (comparison === "end") {
+            this.events.sort((a, b) => (asc ? 1 : -1) * this.compareEventEndTime(a, b));
+            this.setSortingState("end", asc ? "asc" : "desc");
+        }
+        //sort by duration
+        else if (comparison === "duration") {
+            this.events.sort((a, b) => (asc ? 1 : -1) * (a.end.seconds() - a.start.seconds() - (b.end.seconds() - b.start.seconds())));
+            this.setSortingState("duration", asc ? "asc" : "desc");
         }
     }
 
@@ -230,15 +254,51 @@ export class TimeLine {
     }
 
 
-    insert(event: TimedEvent): void {
+    insert(event: TimedEvent, index: number = 0): void {
         //TODO refactor to BST
-        // Find the insertion point
-        let i = 0;
-        while (i < this.events.length && this.compareEventStartTime(this.events[i], event) <= 0) {
-            i++;
+        //if there is index, insert there
+        if (index) {
+            this.events.splice(index, 0, event);
         }
-        // Insert the event at the found index
-        this.events.splice(i, 0, event);
+        //test if TimeLine is ascending or descending and what it is sorted by and insert accordingly in correct order
+        else if (this.sortingOrder && this.sortingBy) {
+            if (this.sortingOrder === "asc") {
+                if (this.sortingBy === "start") {
+                    let i = 0;
+                    while (i < this.events.length && this.compareEventStartTime(this.events[i], event) <= 0) {
+                        i++;
+                    }
+                    this.events.splice(i, 0, event);
+                }
+                else if (this.sortingBy === "end") {
+                    let i = 0;
+                    while (i < this.events.length && this.compareEventEndTime(this.events[i], event) <= 0) {
+                        i++;
+                    }
+                    this.events.splice(i, 0, event);
+                }
+            }
+            else if (this.sortingOrder === "desc") {
+                if (this.sortingBy === "start") {
+                    let i = 0;
+                    while (i < this.events.length && this.compareEventStartTime(this.events[i], event) >= 0) {
+                        i++;
+                    }
+                    this.events.splice(i, 0, event);
+                }
+                else if (this.sortingBy === "end") {
+                    let i = 0;
+                    while (i < this.events.length && this.compareEventEndTime(this.events[i], event) >= 0) {
+                        i++;
+                    }
+                    this.events.splice(i, 0, event);
+                }
+            }
+        }
+        else {
+            //if there is no sorting, insert at the beginning
+            this.events.unshift(event);
+        }
     }
     
     pop(direction: "left" | "right" = "right"): TimedEvent {
