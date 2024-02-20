@@ -13,6 +13,10 @@ test('Test addition and subtraction in place', ()=>{
     expect(e1.seconds()).toBe(101);
     e1.subtract(e2);
     expect(e1.seconds()).toBe(100);
+    e1.add(5);
+    expect(e1.seconds()).toBe(105);
+    e1.subtract(10);
+    expect(e1.seconds()).toBe(95);
 })
 
 test('Test time seconds, milliseconds, microseconds, ect.', ()=>{

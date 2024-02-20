@@ -10,6 +10,7 @@ import {
 } from "./types/enums";
 import { timeZoneMappings } from "./types/records";
 import { mapFromSeconds, mapToSeconds } from "./helpers/coefficients";
+import { getNestedValue } from "./helpers/util";
 
 export { TypeTimeStamp , TimeUnit, ISOStringFormat, TimeZone};
 
@@ -100,20 +101,20 @@ export class Epoch {
         );
     }
 
-    add(epoch: Epoch): void {
+    add(epoch: Epoch | number): void {
         // Convert both epochs to seconds and add them
         const thisEpochInSeconds = this.seconds();
-        const otherEpochInSeconds = epoch.seconds();
+        const otherEpochInSeconds =  (typeof epoch == "number")? epoch : epoch.seconds();
         const resultInSeconds = thisEpochInSeconds + otherEpochInSeconds;
 
         // Convert the result back to the original unit and update this.val
         this.val = resultInSeconds / (mapToSeconds.get(this.unit) || 1);
     }
 
-    subtract(epoch: Epoch): void {
+    subtract(epoch: Epoch | number): void {
         // Convert both epochs to seconds and subtract them
         const thisEpochInSeconds = this.seconds();
-        const otherEpochInSeconds = epoch.seconds();
+        const otherEpochInSeconds = (typeof epoch == "number")? epoch : epoch.seconds();
         const resultInSeconds = thisEpochInSeconds - otherEpochInSeconds;
 
         // Convert the result back to the original unit and update this.val
@@ -222,6 +223,25 @@ export class TimeLine {
 
     protected compareEventEndTime(event1: TimedEvent, event2: TimedEvent): number {
         return event1.end.seconds() - event2.end.seconds()
+    }
+
+    protected compareEventMetadata(event1: TimedEvent, event2: TimedEvent, keys: Array<string>):number {
+        let x = getNestedValue(event1.metaData, keys);
+        let y = getNestedValue(event2.metaData, keys);
+
+        if (typeof x != typeof y) {
+            throw new TypeError(`Type ${typeof x} does not match ${typeof y}.`)
+        }
+
+        switch (typeof x) {
+            case "number":
+                return x - y;
+                break;
+            default:
+                return 0;
+        }
+
+        return 0;
     }
 
     getSortingState(): { by: "start" | "end" | "duration" |null; order: "asc" | "desc" | null } {
