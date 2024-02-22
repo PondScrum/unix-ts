@@ -209,7 +209,7 @@ export class TimedEvent {
 
 export class TimeLine {
     events: Array<TimedEvent>
-    private sortingBy: "start" | "end" | "duration" | null;
+    private sortingBy: "start" | "end" | "duration" | "custom" | null;
     private sortingOrder: "asc" | "desc" | null;
 
     constructor(events: Array<TimedEvent>) {
@@ -218,7 +218,7 @@ export class TimeLine {
         this.sortingOrder = null;
     }
 
-    private setSortingState(by: "start" | "end" | "duration" | null = null, order: "asc" | "desc" | null = null): void {
+    private setSortingState(by: "start" | "end" | "duration" | "custom" | null = null, order: "asc" | "desc" | null = null): void {
         this.sortingBy = by;
         this.sortingOrder = order;
     }
@@ -231,14 +231,18 @@ export class TimeLine {
         return event1.end.seconds() - event2.end.seconds()
     }
 
-    getSortingState(): { by: "start" | "end" | "duration" |null; order: "asc" | "desc" | null } {
+    protected compareCustom(event1: TimedEvent, event2: TimedEvent, compare: (ev1: TimedEvent, ev2: TimedEvent)=> number): number {
+        return compare(event1, event2)
+    }
+
+    getSortingState(): { by: "start" | "end" | "duration" | "custom" | null; order: "asc" | "desc" | null } {
         return {
             by: this.sortingBy,
             order: this.sortingOrder
         };
     }    
 
-    sort(asc: boolean = true, comparison: "start" | "end" | "duration" = "start"): void {
+    sort(asc: boolean = true, comparison: "start" | "end" | "duration" | "custom" = "start", sortFunc?: (ev1: TimedEvent, ev2: TimedEvent)=> number): void {
         //sort by start
         if (comparison === "start") {
             this.events.sort((a, b) => (asc ? 1 : -1) * this.compareEventStartTime(a, b));
@@ -253,6 +257,10 @@ export class TimeLine {
         else if (comparison === "duration") {
             this.events.sort((a, b) => (asc ? 1 : -1) * (a.end.seconds() - a.start.seconds() - (b.end.seconds() - b.start.seconds())));
             this.setSortingState("duration", asc ? "asc" : "desc");
+        } else if (comparison === "custom") {
+            if (sortFunc === undefined) { throw new TypeError("sortFunc cannot be type undefined if comparison is custom.") }
+            this.events.sort((a, b) => (asc ? 1 : -1) * this.compareCustom(a, b, sortFunc));
+            this.setSortingState("custom", asc ? "asc" : "desc");
         }
     }
 
