@@ -52,6 +52,11 @@ export class Epoch {
         return this.seconds() * mapFromSeconds.get(TypeTimeStamp.Microsecond)!;
     }
 
+    /**
+     * Returns Epoch as Date object per reference https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+     *
+     * @returns {Date} - Date object.
+     */
     date(): Date {
         return new Date(this.milliseconds());
     }
@@ -196,6 +201,7 @@ export class TimedEvent {
         )  
     }
 
+   
     duration(): number {
         return this.end.diff(this.start)
     }
@@ -223,25 +229,6 @@ export class TimeLine {
 
     protected compareEventEndTime(event1: TimedEvent, event2: TimedEvent): number {
         return event1.end.seconds() - event2.end.seconds()
-    }
-
-    protected compareEventMetadata(event1: TimedEvent, event2: TimedEvent, keys: Array<string>):number {
-        let x = getNestedValue(event1.metaData, keys);
-        let y = getNestedValue(event2.metaData, keys);
-
-        if (typeof x != typeof y) {
-            throw new TypeError(`Type ${typeof x} does not match ${typeof y}.`)
-        }
-
-        switch (typeof x) {
-            case "number":
-                return x - y;
-                break;
-            default:
-                return 0;
-        }
-
-        return 0;
     }
 
     getSortingState(): { by: "start" | "end" | "duration" |null; order: "asc" | "desc" | null } {
@@ -323,7 +310,7 @@ export class TimeLine {
     
     pop(direction: "left" | "right" = "right"): TimedEvent {
         //TODO implement rpop and lpop
-        let event = (direction === "left") ? this.events.shift() : this.events.pop();
+        const event = (direction === "left") ? this.events.shift() : this.events.pop();
         return event!;
     }
 
