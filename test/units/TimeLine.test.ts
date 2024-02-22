@@ -131,14 +131,16 @@ test('insert method should correctly insert an event into the timeline', () => {
 test('pop method should remove the last or first event from the timeline', () => {
     // Initialize timeline with events
     let t1 = new TimeLine(gen_arr());
-    
+    const len_arr = t1.events.length;
+    t1.sort(true, "start");
     // Test pop with default direction (right)
-    let rightPop = t1.pop();
+    let rightPop = t1.pop('right');
     // The event that was popped should have sort_index_start of 4 (the last one)
-    expect(rightPop.metaData.sort_index_start).toBe(4);
+    expect(rightPop.metaData.sort_index_start).toBe(len_arr-1);
 
     // Reset and test pop with direction left
     t1 = new TimeLine(gen_arr());
+    t1.sort(true, "start");
     let leftPop = t1.pop('left');
     // The event that was popped should have sort_index_start of 0 (the first one)
     expect(leftPop.metaData.sort_index_start).toBe(0);
