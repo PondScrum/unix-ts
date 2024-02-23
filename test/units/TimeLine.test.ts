@@ -116,16 +116,64 @@ test('Test sort desc', ()=>{
 test('insert method should correctly insert an event into the timeline', () => {
     // Initialize timeline with events
     let t1 = new TimeLine(gen_arr());
-    t1.sort()
+    t1.sort();
     
     // Create a new event to insert
     let newEvent = new TimedEvent(new Epoch(ts_start + 10_000), new Epoch(ts_start + 20_000));
+    let longEvent = new TimedEvent(new Epoch(ts_start + 10_000), new Epoch(ts_start + 500_000));
 
     // Insert new event
     t1.insert(newEvent);
     
     // After insertion, the new event should be at index 2
     expect(t1.events[1]).toBe(newEvent);
+
+    // Insert at index
+    t1.insert(newEvent, 5);
+    expect(t1.events[5]).toBe(newEvent);
+    expect(t1.getSortingState()).toStrictEqual({by: null, order: null});
+
+    // Insert into unsorted
+    t1.insert(newEvent);
+    expect(t1.events[0]).toBe(newEvent);
+
+    // Reset Timeline
+    t1 = new TimeLine(gen_arr());
+    t1.sort(false);
+    t1.insert(newEvent);
+    expect(t1.events[4]).toBe(newEvent);
+
+    // Duration asc
+    t1 = new TimeLine(gen_arr());
+    t1.sort(true, "duration");
+    t1.insert(newEvent);
+    expect(t1.events[0]).toBe(newEvent);
+
+    
+    t1 = new TimeLine(gen_arr());
+    t1.sort(true, "duration");
+    t1.insert(longEvent);
+    expect(t1.events[5]).toBe(longEvent);
+
+    // Duration desc
+    t1 = new TimeLine(gen_arr());
+    t1.sort(false, "duration");
+    t1.insert(newEvent);
+    expect(t1.events[5]).toBe(newEvent);
+
+    // End asc
+    t1 = new TimeLine(gen_arr());
+    t1.sort(true, "end");
+    t1.insert(newEvent);
+    expect(t1.events[1]).toBe(newEvent);
+
+    // End desc
+    t1 = new TimeLine(gen_arr());
+    t1.sort(false, "end");
+    t1.insert(newEvent);
+    expect(t1.events[4]).toBe(newEvent);
+
+
 });
 
 test('pop method should remove the last or first event from the timeline', () => {

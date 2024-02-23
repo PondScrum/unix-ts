@@ -231,6 +231,11 @@ export class TimeLine {
         return event1.end.seconds() - event2.end.seconds()
     }
 
+    protected compareEventDuration(event1: TimedEvent, event2: TimedEvent): number {
+        return event1.duration() - event2.duration()
+    }
+
+
     protected compareCustom(event1: TimedEvent, event2: TimedEvent, compare: (ev1: TimedEvent, ev2: TimedEvent)=> number): number {
         return compare(event1, event2)
     }
@@ -274,6 +279,8 @@ export class TimeLine {
         //if there is index, insert there
         if (index) {
             this.events.splice(index, 0, event);
+            this.sortingBy = null;
+            this.sortingOrder = null;
         }
         //test if TimeLine is ascending or descending and what it is sorted by and insert accordingly in correct order
         else if (this.sortingOrder && this.sortingBy) {
@@ -292,6 +299,13 @@ export class TimeLine {
                     }
                     this.events.splice(i, 0, event);
                 }
+                else if (this.sortingBy === "duration") {
+                    let i = 0;
+                    while (i < this.events.length && this.compareEventDuration(this.events[i], event) <= 0) {
+                        i++;
+                    }
+                    this.events.splice(i, 0, event);
+                }
             }
             else if (this.sortingOrder === "desc") {
                 if (this.sortingBy === "start") {
@@ -304,6 +318,13 @@ export class TimeLine {
                 else if (this.sortingBy === "end") {
                     let i = 0;
                     while (i < this.events.length && this.compareEventEndTime(this.events[i], event) >= 0) {
+                        i++;
+                    }
+                    this.events.splice(i, 0, event);
+                } 
+                else if (this.sortingBy === "duration") {
+                    let i = 0;
+                    while (i < this.events.length && this.compareEventDuration(this.events[i], event) >= 0) {
                         i++;
                     }
                     this.events.splice(i, 0, event);
